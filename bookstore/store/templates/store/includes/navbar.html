@@ -1,0 +1,92 @@
+{% load static %}
+
+<div class="bg-primary d-flex justify-content-end" style="height: 30px;">
+  <ul class="list-inline m-0">
+    <li class="list-inline-item">
+      <a href="https://www.facebook.com/aswindas.warrier" class="text-light me-4" target="_blank">
+        <i class="fa fa-facebook mt-2" style="color: #ffff;"></i>
+      </a>
+    </li>
+
+    <li class="list-inline-item">
+      <a href="#" class="text-light me-4">
+        <i class="fa fa-instagram mt-2" style="color: #ffffff;"></i>
+      </a>
+    </li>
+
+    <li class="list-inline-item">
+      <a href="https://www.linkedin.com/in/aswindas-c-v-50391b156/" class="text-light me-4" target="_blank">
+        <i class="fa fa-linkedin mt-2" style="color: #ffffff;"></i>
+      </a>
+    </li>
+
+    <li class="list-inline-item">
+      <a href="https://github.com/ASWIN-CHUNDEKKAD" class="text-light me-4" target="_blank">
+        <i class="fa fa-github mt-2" style="color: #ffffff;"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a href="{% url 'home' %}"><img src="{% static 'images/logo-6.png' %}" height=70px,width=70px class="me-4" alt="logo image"></a>
+      {% comment %} <a class="navbar-brand" href="#">BOOK SPOT</a> {% endcomment %}
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="search-bar border border-dark me-4">
+        <form action="{% url 'searchproduct' %}" method="POST">
+          {% csrf_token %}
+          <div class="input-group">
+            <input type="search" required class="form-control" name='productsearch' id="searchproducts" placeholder="Search Books.....">
+            <button type="submit" class="input-group-text"><i class="fa fa-search"></i></button>
+          </div>
+        </form>
+      </div>
+      
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'category' %}active{% endif %}" href="{% url 'category' %}">Category</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'wishlist' %}active{% endif %}" href="{% url 'wishlist' %}">Wishlist</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" aria-current="page" href="{% url 'cart' %}">Cart</a>
+          </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{request.user}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class='dropdown-item' href="{% url 'myorders' %}">My orders</a></li>
+                {% comment %} <li><a class='dropdown-item' href="{% url 'edit_profile' %}">Edit Profile</a></li> {% endcomment %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'loginpage' %}active{% endif %}" href="{% url 'loginpage' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  

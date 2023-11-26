@@ -1,0 +1,38 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+<div class="py-3 bg-primary">
+    <div class="container">
+      <a class="{% if request.resolver_match.url_name == 'home' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'home' %}">Home /</a>
+      <a class="{% if request.resolver_match.url_name == 'authors' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'authors' %}">Authors /</a>
+      <a class="{% if request.resolver_match.url_name == 'authorsview' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'authorsview' author.name %}">{{author.name}}</a>
+
+    </div>
+  </div>
+
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="text-center">
+            <h2>{{ author.name }}</h2>
+        <hr style="height:2px;border-width:2px;color:red;background-color:red;">
+
+        </div>
+        <div class="col-md-12">
+            <img src="{{ author.author_image.url }}" class="rounded mx-auto d-block" alt="...">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 card mt-4">
+            <p class="lh-base">
+                {{ author.description }}
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

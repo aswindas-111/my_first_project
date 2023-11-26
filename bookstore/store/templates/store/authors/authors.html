@@ -1,0 +1,99 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+<div class="py-3 bg-primary">
+  <div class="container">
+    <a class="{% if request.resolver_match.url_name == 'home' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'home' %}">Home /</a>
+    <a class="{% if request.resolver_match.url_name == 'authors' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'authors' %}">Authors</a>
+  </div>
+</div>
+
+
+{% comment %} <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Authors</h1>
+      <hr style="height:2px;border-width:2px;color:red;background-color:red">
+      <div class="row">
+        {% for item in authors %}
+        <div class="col-md-3">
+          <br>
+          <div class="card shadow">
+            <a href="{% url 'authorsview' item.name %}">
+              <div class="card-body">
+                <div class="author-image">
+                  <img src="{{item.author_image.url}}" alt="category-image" class="w-100 img-fluid">
+                </div>
+                <hr style="height:2px;border-width:2px;color:red;background-color:red">
+                <h4 class="text-center">{{item.name}}</h4>
+              </div> 
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>  {% endcomment %}
+
+
+
+<!-- Author 1 - Bootstrap Brain Component -->
+{% comment %} <div class="container-fluid">
+  {% for item in authors %}
+  <div class="col-md-12">
+    <section class="py-5">
+      <div class="container overflow-hidden bsb-author-1">
+        <div class="row justify-content-center gy-4 gy-md-0">
+          <div class="col-12 col-md-3 col-xl-2 d-flex align-items-center justify-content-center">
+            <img class="img-fluid rounded-circle author-avatar" loading="lazy" src="{{item.author_image.url}}" alt="Elio Evander">
+          </div>
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5 d-flex align-items-center justify-content-center">
+            <div class="text-center text-md-start author-content">
+              
+              <h2 class="fs-2 mb-3">{{item.name}}</h2>
+              <p class="mb-3">{{ item.small_description }}</p>
+              <p class="mb-0">
+                <a href="{% url 'authorsview' item.name %}" class="link-dark text-decoration-none">
+                  View More 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                  </svg>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  {% endfor %}
+</div> {% endcomment %}
+
+{% for item in authors %}
+<div class="container mt-3">
+  <div class="card profile border-primary">
+      <div class="card-body">
+          <div class="row">
+              <div class="col-md-5 text-center">
+                  <img class="img-thumbnail mb-3 img-fluid rounded-circle"  src="{{item.author_image.url}}" style="width: 300px; height: 300px;" alt="author image">
+              </div>
+              <div class="col-md-7">
+                  <h2>{{item.name}}</h2>
+                  <hr style="height:2px;border-width:2px;color:red;background-color:red">
+                  <p class="mb-3">{{ item.small_description }}</p>
+              <p class="mb-0">
+                <a href="{% url 'authorsview' item.name %}" class="link-dark text-decoration-none">
+                  <h6 class="fst-italic">Read More  <i class="fa fa-arrow-right" aria-hidden="true"></i></h6>
+                </a>
+              </p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock content %}

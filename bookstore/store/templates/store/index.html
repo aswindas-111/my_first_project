@@ -1,0 +1,138 @@
+
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+{% include 'store/includes/slider.html' %}
+
+{% comment %} CATEGORY BASED SLIDER {% endcomment %}
+
+<div class="container mt-3 ">
+  <div class="row">
+    <div class="col-md-12">
+      <hr style="height:2px;border-width:2px;color:red;background-color:black">
+      <div class="row owl-carousel owl-theme ms-5">
+        {% for item in cate_slider %}
+        <div class="col-md-6">
+          <br>
+          <div class="">
+            <a href="{% url 'categoryview' item.name %}">
+              <div class="card-body">
+                <div class="category-image">
+                  <img src="{{item.image.url}}" alt="category-image" class="w-100" height=50px,width=50px>
+                </div>
+                <h4 class="text-center">{{item.name}}</h4>
+              </div> 
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <hr style="height:2px;border-width:2px;color:red;background-color:black">
+
+    </div>
+  </div>
+</div> 
+
+
+{% comment %} TRENDING PRODUCTS SLIDER {% endcomment %}
+<div class="container mb-5 mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center fst-italic text-dark">Now Trending</h2>
+        {% comment %} <hr style="height:2px;border-width:2px;color:red;background-color:red"> {% endcomment %}
+        <div class="row owl-carousel owl-theme">
+          {% for item in trending_products %}
+          <div class="product_data item ">
+            <br>
+            <div class="card border border-primary">
+            <div class="card-body">
+                <a href="{% url 'productview' item.category.name item.name %}">
+                  <div class="category-image">
+                    <img src="{{item.product_image.url}}" alt="product-image" class="w-100" height=250px,width=150px>
+                  </div>
+                  <hr style="height:2px;border-width:2px;color:red;background-color:red">
+                  <h4 class="text-center fs-5 mt-3">{{item.name}}</h4>
+                </a>
+                  <br>
+                  <span class="float-start text-muted">M.R.P : <i class="fa fa-inr" aria-hidden="true"></i><s> {{ item.original_price }}</s></span>
+                  <span class="float-end text-dark"><i class="fa fa-inr" aria-hidden="true"></i> {{ item.selling_price }}</span>
+                  <br>
+                  <div class="row mt-2">
+                     <div class="col-md-6">
+                      {% csrf_token %}
+                      <input type="hidden" value="{{ item.id }}" class="prod_id">
+                      <div class="input-group text-center mb-3">
+                        <button class="input-group-text decrement-btn">-</button>
+                        <input type="text" name="quantity" class="form-control qty-input text-center" value="1">
+                        <button class="input-group-text increment-btn">+</button>
+                      </div>
+                    </div> 
+                    <div class="col-md-6 px-0">
+                      <span class="mb-2">
+                        {% if item.quantity > 0 %}
+                          <button type="button" class="btn btn-primary btn-sm me-3 py-2  addToCartBtn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                        {% else %}
+                          <button type="button" class="btn btn-danger btn-sm me-3 py-2 disabled ">Out of Stock </button>
+                        {% endif %}
+                      </span>                      
+                    </div>
+                     {% comment %} <div class="col-md-12 px-0">
+                      <span class="mb-2">
+                        <button type="button" class="btn btn-success btn-sm   addToWishlist">Add to Wishlist <i class="fa fa-heart"></i></button>
+                      </span>
+                    </div>  {% endcomment %}
+                  </div>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div> 
+
+{% comment %} END TRENDING PRODUCTS SLIDER {% endcomment %}
+
+{% include "store\includes\testimonials.html" %}
+
+{% include "store\authors\authors_slider.html" %}
+
+{% include "store\includes\footer.html" %}
+
+{% endblock content %}
+
+{% block scripts %}
+
+
+<script>
+  $('.owl-carousel').owlCarousel({
+    
+    loop:true,
+    margin:10,
+    autoplay: true,
+    dots:false,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:4
+        }
+    }
+})
+</script>
+
+{% endblock scripts %}
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row justify-content-center pt-5 bg-light bg-gradient text-light">
+        <div id="client-testimonial-carousel" class="carousel slide" data-bs-ride="carousel" style="height:200px;">
+            <div class="carousel-inner">
+                {% for testimonial_item in testimonial %}
+                    <div class="carousel-item{% if forloop.first %} active{% endif %} text-center p-4">
+                        <blockquote class="blockquote text-center">
+                            <p class="mb-0 text-dark"><i class="fa fa-quote-left"></i> {{ testimonial_item.testimonial }}</p>
+                            <footer class="blockquote-footer mt-2">{{ testimonial_item.name }} </footer>
+                        </blockquote>
+                    </div>
+                {% endfor %}
+            </div>
+            <ol class="carousel-indicators">
+                {% for i in testimonial %}
+                    <li data-bs-target="#client-testimonial-carousel" data-bs-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>

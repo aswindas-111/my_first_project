@@ -1,0 +1,57 @@
+{% extends 'store/layouts/main.html' %}
+
+
+{% block content %}
+
+{% comment %} <input type="text",name='otp', id='otp'>
+<button id="submit-otp">Submit OTP</button> {% endcomment %}
+
+
+<div class="text-center bg-grey mx-5 my-5">
+    <div class="card-body shadow">
+      <h3 class="py-3 text-dark fw-bold">Verify Your Account</h3>
+      <input type="text",name='otp', id='otp'> 
+      <div id="error-message" class="text-danger">
+        {% if error_message %}
+                {{ error_message }}
+        {% endif %}
+      </div> <!-- Display the error message --><br>
+      <div class="py-2">
+      </div>
+      {% comment %} <button id="submit-otp">Submit OTP</button> {% endcomment %}
+      <button class="submit-otp btn btn-primary" >Submit OTP</button>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
+
+{% block scripts %}
+
+<script>
+
+    $(document).ready(function () {
+        $('.submit-otp').on('click', function () {
+            let otp = $('#otp').val();
+            console.log("OTP: ", otp);
+    
+            $.ajax({
+                type: "POST",
+                url: '{% url "verifyEmail" %}',
+                data: { 'otp': otp },
+                success: function (data) {
+                    window.location.href = "{% url 'loginpage' %}";
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error:", xhr.responseJSON.error);
+                    $('#error-message').text(xhr.responseJSON.error);
+                }
+            });
+        });
+    });
+
+</script>
+
+{% endblock scripts %}

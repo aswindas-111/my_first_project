@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .invoice {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-details div {
+            width: 50%;
+        }
+        .invoice-details h2 {
+            margin: 0;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .invoice-table th,
+        .invoice-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .invoice-table th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            text-align: right;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .grand_total{
+            text-align: right;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <h1>BOOK SPOT</h1>
+        </div>
+        <div class="invoice-details">
+            <div>
+                <h2>Invoice To: </h2>
+                <address>
+                    {{ order.fname }} {{ order.lname }}<br><br>
+                    {{ order.address }}<br>
+                    {{ order.city }}<br>
+                    {{ order.state }}<br>
+                </address>
+            </div>
+            <div>
+                <h2>Invoice-Details</h2>             
+                <strong>Order id       : </strong>{{ order.tracking_no }}<br>
+                <strong>Payment Mode   : </strong>{{ order.payment_mode }}<br>
+                <strong>Transaction id : </strong>{{ order.payment_id }}<br>
+                <strong>Order Date     : </strong>{{ order.created_at }}<br>
+            </div>
+        </div>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th> Unit Prize</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for item in orderitems %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="total">
+            Total: {{ order.total_price }}
+        </div>
+        {% if order.total_price_after_discount != order.total_price %}
+        <div class="grand_total">
+            Grand total after discount: {{ order.total_price_after_discount }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+

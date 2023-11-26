@@ -1,0 +1,37 @@
+{% comment %} AUTHORS CAROUSEL {% endcomment %}
+
+<div class="container mt-2">
+    <div class="row">
+      <div class="col-md-12">
+        {% comment %} <hr style="height:2px;border-width:2px;color:red;background-color:red"> {% endcomment %}
+        
+        <hr style="height:1px;border-width:1px;color:black;background-color:black">
+        <div class="bg-light">
+        <h2 class="text-center fst-italic text-danger pt-3"> Authors</h2>
+
+          <div class="row owl-carousel owl-theme ms-1 ">
+            {% for item in authors %}
+            <div class="col-md-6 ms-5">
+              <br>
+              <div class="">
+                <a href="{% url 'authorsview' item.name %}">
+                  <div class="card-body">
+                    <div class="category-image">
+                      <img src="{{item.author_image.url}}" alt="category-image" class="w-100  rounded-circle" height=200px,width=300px>
+                    </div>
+                    <h6 class="text-center">{{item.name}}</h6>
+                  </div> 
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <a href="{% url 'authors' %}"><p class="text-end m-3">View All <i class="fa fa-arrow-right" aria-hidden="true"></i></p></a>
+        </div>
+        
+        
+        <hr style="height:1px;border-width:1px;color:black;background-color:red">
+      </div>
+    </div>
+  </div> 
+  {% comment %} END AUTHORS CAROUSEL {% endcomment %}

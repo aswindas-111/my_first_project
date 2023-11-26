@@ -1,0 +1,43 @@
+
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+  <div class="py-3 bg-primary">
+    <div class="container">
+      <a class="{% if request.resolver_match.url_name == 'home' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'home' %}">Home /</a>
+      <a class="{% if request.resolver_match.url_name == 'category' %}text-white active {% else %}text-dark active{% endif %}" href="{% url 'category' %}">category</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Category</h1>
+        <hr style="height:2px;border-width:2px;color:red;background-color:red">
+        <div class="row">
+          {% for item in category %}
+          <div class="col-md-3">
+            <br>
+            <div class="card shadow">
+              <a href="{% url 'categoryview' item.name %}">
+                <div class="card-body">
+                  <div class="category-image">
+                    <img src="{{item.image.url}}" alt="category-image" class="w-100" height=150px,width=150px>
+                  </div>
+                  <h4 class="text-center">{{item.name}}</h4>
+                </div> 
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>  
+
+
+
+
+{% endblock content %}
+    

@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            
+        {% endblock title %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    {% comment %} jquery {% endcomment %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    {% comment %} google fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    {% comment %} Alertify JS {% endcomment %}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    {% comment %} custom css {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    {% comment %} owl carousel css {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+    {% block custom-style %}
+    
+    
+    
+    {% endblock custom-style %}
+
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <style>
+        *{
+            font-family: 'Roboto', sans-serif;
+         }
+         
+        a{
+            text-decoration:none;
+            color: #000
+        }
+
+        .active{
+            font-weight:550;
+        }
+
+
+{% comment %} Reset password form styling {% endcomment %}
+        .form-container {
+            margin-top: 10px; /* Add top margin for spacing */
+        }
+
+        
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 50%; /* Make the input fields take up the full width of their container */
+            padding: 10px; /* Add some padding for better readability */
+            margin-bottom: 10px; /* Add bottom margin for spacing between input fields */
+            border: 1px solid #ccc; /* Add a border for input fields */
+            border-radius: 5px; /* Add rounded corners to input fields */
+        }
+
+        
+        .form-container input[type="submit"] {
+            width: 100%; /* Make the button take up the full width of its container */
+            padding: 10px; /* Add padding for better appearance */
+            background-color: #007bff; /* Set the background color */
+            color: #fff; /* Set the text color to white */
+            border: none; /* Remove the button border */
+            border-radius: 5px; /* Add rounded corners to the button */
+            cursor: pointer; /* Add a pointer cursor on hover */
+        }
+
+        
+        .form-container .error-message {
+            color: #ff0000; /* Set the text color to red for error messages */
+        }
+{% comment %}End Reset password form styling {% endcomment %}
+
+    </style>
+
+</head>
+<body>
+    {% include 'store/includes/navbar.html' %}
+
+    {% block content %}
+
+    {% endblock content %}
+    
+
+    
+    {% comment %} sweate alert {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% comment %} jquery {% endcomment %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+    {% comment %} custom JS {% endcomment %}
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    {% comment %} owl carousel JS {% endcomment %}
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+    {% comment %} Elavate zoom {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#zoom').elevateZoom({
+                zoomType: "lens",     // Use the "lens" zoom type
+                lensShape: "square",  // Set the lens shape to "square" for outer zoom
+                cursor: "crosshair"
+            });
+        });
+        </script>
+
+    {% comment %} bootstrap js{% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    {% comment %} zoom-js {% endcomment %}
+    {% comment %} <script src="{% static 'js/xzoom.min.js' %}"></script> {% endcomment %}
+
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script>
+        var availableTags = [];
+
+        $.ajax({
+            method : "GET",
+            url: "/product-list",
+           
+            success: function (response) {
+                startAutocomplete(response);
+            }
+                
+        });
+        function startAutocomplete(availableTags)
+        {
+            $( "#searchproducts" ).autocomplete({
+                source: availableTags
+                });
+        }
+        
+    </script>
+
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/6517320e10c0b25724870630/1hbh9n2mk';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    {% comment %} Alertify JS {% endcomment %}
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script>
+        alertify.set('notifier','position', 'top-right');
+        
+        {% for msg in messages %}
+            alertify.success('{{ msg }}');
+        {% endfor %}
+
+    </script>
+
+    {% block scripts %}
+
+
+    {% endblock scripts %}
+
+    {% comment %} Rozorpay checkout js  {% endcomment %}
+    <script src="{% static 'js/checkout.js' %}"></script>
+
+    {% comment %} <footer class="container-fluid bg-info text-center fst-italic fs-6 fixed-bottom text-muted"> 
+        Copyright : 2023 | Developed By Aswindas
+    </footer> {% endcomment %}
+    
+</body>
+</html>
