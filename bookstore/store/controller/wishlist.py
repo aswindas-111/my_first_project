@@ -49,14 +49,17 @@ def deletewishlistitem(request):
         if request.user.is_authenticated:
             prod_id = int(request.POST.get('product_id'))
 
-            if(Wishlist.objects.filter(user=request.user, product_id=prod_id)):
-                wishlistitem = Wishlist.objects.get(product_id=prod_id)
-                wishlistitem.delete()
-                return JsonResponse({'status':'product removed from wishlist'})
-            else:                
-                return JsonResponse({'status':'product not found in wishlist'})
+            wishlist_items = Wishlist.objects.filter(user=request.user, product_id=prod_id)
+
+            if wishlist_items.exists():
+                wishlist_item = wishlist_items.first()
+                wishlist_item.delete()
+                return JsonResponse({'status': 'product removed from wishlist'})
+            else:
+                return JsonResponse({'status': 'product not found in wishlist'})
         else:
-            return JsonResponse({'status':'Login to continue'})
+            return JsonResponse({'status': 'Login to continue'})
 
     return redirect('/')
+
 # ...START- DELETE WISHLIST FUNCTION...
