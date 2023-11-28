@@ -16,9 +16,9 @@ def addtocart(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             prod_id = int(request.POST.get('product_id'))
-            product_check = Product.objects.get(id=prod_id)
+            product_check = Product.objects.select_related('category').get(id=prod_id)
             if(product_check):
-                if(Cart.objects.filter(user=request.user.id,product_id = prod_id)):
+                if(Cart.objects.select_related('product').filter(user=request.user.id,product_id = prod_id)):
                     return JsonResponse({'status' : 'Product Already in Cart'})
                 else:
                     prod_qty = int(request.POST.get('product_qty'))
@@ -40,33 +40,11 @@ def addtocart(request):
 
 
 # ...START- FUNCTION OF VIEW CART PAGE...
-@receiver([post_save, post_delete], sender=Cart)
-def invalidate_cart_cache(sender, instance, **kwargs):
-    # Construct the cache key based on the user's ID
-    cache_key = f'cart_{instance.user.id}'
-
-    # Delete the cached result associated with the cache_key
-    cache.delete(cache_key)
-
 @login_required(login_url='loginpage')
 def viewcart(request):
-    '''FUNCTION OF VIEW CART PAGE'''
-    # Construct the cache key based on the user's ID
-    cache_key = f'cart_{request.user.id}'
-    
-    # Check if the result is already in the cache
-    cached_cart = cache.get(cache_key)
-
-    if cached_cart is not None:
-        context = {'cart': cached_cart}
-    else:
-        cart = Cart.objects.select_related('product').filter(user=request.user)
-        context = {'cart': cart}
-
-        # Cache the result for future requests
-        cache.set(cache_key, cart, timeout=3600)  # Cache the result for 1 hour (you can adjust this value)
-
-    return render(request, 'store/cart.html', context)
+    cart = Cart.objects.filter(user=request.user).select_related('product')
+    context = {'cart' : cart}
+    return render(request,'store/cart.html',context)
 # ...END- FUNCTION OF VIEW CART PAGE...
 
 
